@@ -1,0 +1,20 @@
+{
+  "name": "app",
+  "version": "1.0.50",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^1.1.0",
+    "@helperdiscord/centra": "^2.4.2",
+    "discord.js": "^14.16.3",
+    "elysia": "latest",
+    "elysia-helmet": "^2.0.0"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "module": "src/index.js"
+}
