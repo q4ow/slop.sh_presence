@@ -11,7 +11,7 @@ export const PresenceRouter = new Elysia({ prefix: "/presence" })
             socket_map.set(ws.id, process.env.USER_ID!)
             let guildMember = client.guilds.cache.get(process.env.GUILD_ID).members.cache.get(process.env.USER_ID!)
             let newPresence = guildMember.presence
-            sendPresence(guildMember, newPresence)
+            sendPresence(guildMember, newPresence, ws, true)
         },
         async close(ws) {
             if (socket_map.has(ws.id)) {

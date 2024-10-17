@@ -3,7 +3,7 @@ import { Presence as PresenceObject } from "../interfaces/Presence";
 import { formatAssets, formatBadges, formatTitle } from "./FormatUtils";
 import { app } from "..";
 
-export async function sendPresence(guildMember: GuildMember, newPresence: Presence) {
+export async function sendPresence(guildMember: GuildMember, newPresence: Presence, ws?: any, local?: boolean) {
   if (newPresence) {
     let presenceObject: PresenceObject = {
       _id: newPresence.userId,
@@ -40,7 +40,11 @@ export async function sendPresence(guildMember: GuildMember, newPresence: Presen
         }
       }
     }
-    app.server?.publish(newPresence.userId, JSON.stringify(presenceObject));
+    if (local && ws) {
+      ws.send(JSON.stringify(presenceObject))
+    } else {
+      app.server?.publish(newPresence.userId, JSON.stringify(presenceObject));
+    }
   } else {
     let presenceObject: PresenceObject = {
       _id: guildMember.id,
@@ -52,6 +56,10 @@ export async function sendPresence(guildMember: GuildMember, newPresence: Presen
       platform: {},
       badges: await formatBadges(guildMember.user.flags, guildMember.user),
     }
-    app.server?.publish(newPresence.userId, JSON.stringify(presenceObject))
+    if (local && ws) {
+      ws.send(JSON.stringify(presenceObject))
+    } else {
+      app.server?.publish(newPresence.userId, JSON.stringify(presenceObject));
+    }
   }
 }
