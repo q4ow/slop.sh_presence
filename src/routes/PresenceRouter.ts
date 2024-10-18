@@ -13,11 +13,16 @@ export const PresenceRouter = new Elysia({ prefix: "/presence" })
             let newPresence = guildMember.presence
             sendPresence(guildMember, newPresence, ws, true)
         },
+        async message(ws, message) {
+            if (message === "ping") {
+                ws.send("pong")
+            }
+        },
         async close(ws) {
             if (socket_map.has(ws.id)) {
                 let discord_id = socket_map.get(ws.id)!
                 ws.unsubscribe(discord_id)
                 socket_map.delete(ws.id)
             }
-        }
+        },
     })
