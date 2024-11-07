@@ -63,7 +63,7 @@ export const app = new Elysia()
       hidePoweredBy: true,
     })
   )
-  .listen(process.env.PORT!);
+  .listen({ port: process.env.PORT!, hostname: "0.0.0.0" });
 
 console.log(
   `Elysia is running at ${app.server?.hostname}:${app.server?.port}`
