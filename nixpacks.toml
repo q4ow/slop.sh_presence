@@ -1,0 +1,7 @@
+[phases.setup]
+nixPkgs = ["unzip"]
+commands = [
+  "curl -fsSL https://bun.sh/install | bash",  # Install Bun
+  "echo 'export PATH=\"$HOME/.bun/bin:$PATH\"' >> $HOME/.profile",
+  "source $HOME/.profile"
+]
